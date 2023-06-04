@@ -1,6 +1,7 @@
-NUM_DEVICES: 4
+NUM_DEVICES: 2
 TASK: 'sta' 
 SAVE_TOP_K: 1
+CHECKPOINT_FILE_PATH: ''
 DATA:
   STILL:
     MIN_SIZE: [640, 672, 704, 736, 768, 800]
@@ -13,11 +14,14 @@ MODEL:
   NAME: StillFast
   NOUN_CLASSES: 128
   VERB_CLASSES: 81
+  BRANCH: "StillFast"
+  NUM_FRAMES: 16
+  MAX_OBJ: 10
   LOSS:
     WEIGHTS:
       NOUN: 1.0
-      VERB: 0.1
-      TTC: 0.5 
+      VERB: 0.5
+      TTC: 1.0 
   STILL:
     PRETRAINED: True
     REPLACE_HEAD: True
@@ -47,38 +51,41 @@ MODEL:
       PRE_PYRAMID_FUSION: True     
       LATERAL_CONNECTIONS: False
 SOLVER:
-  BASE_LR: 0.001
+  BASE_LR: 0.0001
   WEIGHT_DECAY: 0.0001
   MAX_EPOCH: 20
+  OPTIMIZING_METHOD: sgd
   LR_POLICY: multistep_warmup
   GAMMA: 0.1
   WARMUP_STEPS: 2000
   MILESTONES: [15, 30]
   PRECISION: 16
 EGO4D_STA:
-  STILL_FRAMES_PATH: /path/to/the/EGO4D/v1/object_frames/folder/
-  FAST_LMDB_PATH: /path/to/the/EGO4D/v1/lmdb/folder/
-  ANNOTATION_DIR: /path/to/the/EGO4D/v1/annotations/ 
+  STILL_FRAMES_PATH: "/data/ego4d_data/v2/full_scale/short_term_anticipation/data/comp_lmdb/"
+  FAST_LMDB_PATH: "/data/ego4d_data/v2/full_scale/short_term_anticipation/data/comp_lmdb/"
+  ANNOTATION_DIR: "/data/ego4d_data/v2/annotations/"
+  OBJECT_DETECTIONS: "/data/ego4d_data/v2/ego_obj_detections/"
   TRAIN_LISTS: [fho_sta_train.json] 
   VAL_LISTS: [fho_sta_val.json]
   TEST_LISTS: [fho_sta_test_unannotated.json]
 
 TRAIN:
-  BATCH_SIZE: 14
+  BATCH_SIZE: 2
   DATASET: "Ego4dShortTermAnticipationStillVideo"
   AUGMENTATIONS:
     RANDOM_HORIZONTAL_FLIP: True
 
 VAL:
   DATASET: "Ego4dShortTermAnticipationStillVideo"
-  BATCH_SIZE: 16
-  GROUP_BATCH_SAMPLER: True
+  BATCH_SIZE: 8
+  GROUP_BATCH_SAMPLER: False
 
 TEST:
   DATASET: "Ego4dShortTermAnticipationStillVideo"
-  BATCH_SIZE: 4
+  BATCH_SIZE: 8
 
 DATA_LOADER:
   NUM_WORKERS: 4
+
 
   

@@ -63,8 +63,6 @@ Then, login with `wandb login`.
 
 You can download the model trained on 'v2' of ego4d : [Challenge Model](https://drive.google.com/file/d/1UomhYn3SKnWfoNgH5jjngJ3aywc-kP-c/view?usp=share_link)
 
-
-
 ## EGO4D Dataset
 To train/test the model on the EGO4D dataset, follow the instructions provided here to download the dataset and its annotations for the Short-Term Object Interaction Anticipation task:
 
@@ -75,7 +73,7 @@ To train/test the model on the EGO4D dataset, follow the instructions provided h
 
 To train StillFast on the EGO4D dataset, execute the following command:
 
-`python main.py --cfg configs/sta/swin_v2.yaml --train --exp <expt_name>`
+`python main.py --cfg configs/sta/gano.yaml --train --exp <expt_name>`
 
 Outputs will be logged to wandb and stored under the folder `output/sta/<expt_name>/version_0/`
 
