@@ -6,7 +6,7 @@ S. Thakur, C. Beyan, P. Morerio, V. Murino, A. Del Bue. Enhancing Next Active Ob
 
 CVPR23 technical report, Guided Attention for Next Active Object @ EGO4D STA Challenge
 
-**Winner of CVPR23 EGO4D STA challenge** [Leaderboard](https://eval.ai/web/challenges/challenge-page/1623/leaderboard/3910) 
+&#9733; **Winner of CVPR23 EGO4D STA challenge** [Leaderboard](https://eval.ai/web/challenges/challenge-page/1623/leaderboard/3910) 
 
 [project web page](https://sanketsans.github.io/guided-attention-egocentric.html) | [paper](https://arxiv.org/abs/2305.12953) | [technical report](https://arxiv.org/abs/2305.16066)
 
