@@ -1,3 +1,5 @@
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/guided-attention-for-next-active-object-ego4d/short-term-object-interaction-anticipation-on)](https://paperswithcode.com/sota/short-term-object-interaction-anticipation-on?p=guided-attention-for-next-active-object-ego4d)
+
 # GANOv2 : Guided Attention for Next Active Objects - version 2
 
 This is the official github repository of the following publication, modified for CVPR23 EGO4D STA challenge :
