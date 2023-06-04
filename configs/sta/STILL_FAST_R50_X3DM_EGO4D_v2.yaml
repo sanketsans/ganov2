@@ -1,0 +1,125 @@
+NUM_DEVICES: 2
+TASK: 'sta' 
+SAVE_TOP_K: 1
+# CHECKPOINT_FILE_PATH: '/home/sanketthakur/Documents/Work/stillfast/output/sta/StillFast_test/version_0/StillFast_EGO4D_v2.ckpt'
+DATA:
+  STILL:
+    MIN_SIZE: [640, 672, 704, 736, 768, 800]
+    MAX_SIZE: 1333
+    FAST_TO_STILL_SIZE_RATIO: 0.32
+  FAST:
+    NUM_FRAMES: 16
+    SAMPLING_RATE: 1
+MODEL:
+  NAME: StillFast
+  NOUN_CLASSES: 128
+  VERB_CLASSES: 81
+  BRANCH: "StillFast"
+  LOSS:
+    WEIGHTS:
+      NOUN: 1.0
+      VERB: 0.1
+      TTC: 0.5 
+  STILL:
+    PRETRAINED: True
+    REPLACE_HEAD: True
+    BACKBONE:
+      NAME: resnet50
+      PRETRAINED: True
+    BOX:
+      POOLER_SAMPLING_RATIO: 0
+  FAST:
+    BACKBONE:
+      NAME: x3d_m
+      PRETRAINED: True
+  STILLFAST:
+    ROI_HEADS:
+      VERSION: v2
+      V2_OPTIONS:
+        FUSION: concat_residual
+    FUSION:
+      FUSION_BLOCK: convolutional
+      CONVOLUTIONAL_FUSION_BLOCK:
+        POOLING: mean
+        CONV_BLOCK_ARCHITECTURE: simple_convolution
+        POST_UP_CONV_BLOCK: True
+        POST_SUM_CONV_BLOCK: True
+        GATING_BLOCK: 'None'
+      POST_PYRAMID_FUSION: False
+      PRE_PYRAMID_FUSION: True     
+      LATERAL_CONNECTIONS: False
+SOLVER:
+  BASE_LR: 0.001
+  WEIGHT_DECAY: 0.0001
+  MAX_EPOCH: 20
+  LR_POLICY: multistep_warmup
+  GAMMA: 0.1
+  WARMUP_STEPS: 2000
+  MILESTONES: [15, 30]
+  PRECISION: 16
+EGO4D_STA:
+  STILL_FRAMES_PATH: "/data/ego4d_data/v1/full_scale/short_term_anticipation/data/comp_lmdb/"
+  FAST_LMDB_PATH: "/data/ego4d_data/v1/full_scale/short_term_anticipation/data/comp_lmdb/"
+  ANNOTATION_DIR: "/data/ego4d_data/v2/annotations/"
+  TRAIN_LISTS: [fho_sta_train.json] 
+  VAL_LISTS: [fho_sta_val.json]
+  TEST_LISTS: [fho_sta_test_unannotated.json]
+
+TRAIN:
+  BATCH_SIZE: 8
+  DATASET: "Ego4dShortTermAnticipationStillVideo"
+  AUGMENTATIONS:
+    RANDOM_HORIZONTAL_FLIP: True
+
+VAL:
+  DATASET: "Ego4dShortTermAnticipationStillVideo"
+  BATCH_SIZE: 16
+  GROUP_BATCH_SAMPLER: True
+
+TEST:
+  DATASET: "Ego4dShortTermAnticipationStillVideo"
+  BATCH_SIZE: 4
+
+DATA_LOADER:
+  NUM_WORKERS: 4
+
+## With 7 datapoints 
+
+## orig 
+# ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#      Validate metric           DataLoader 0
+# ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#   map_box_noun_verb_ttc      7.262006512006511
+#        val/ap_box            38.48215418836049
+#      val/ap_box_noun        17.346737114881865
+#    val/ap_box_noun_ttc       7.31269384578161
+#   val/ap_box_noun_verb       13.46368773973284
+# val/ap_box_noun_verb_ttc     5.774659777666946
+#      val/ap_box_ttc         13.333640080981764
+#      val/ap_box_verb        24.255429013763013
+#    val/ap_box_verb_ttc       9.317687423683225
+#     val/map_box_noun         24.6652476632127
+#   val/map_box_noun_ttc       8.091277279523231
+#   val/map_box_noun_verb     21.937575544559493
+# val/map_box_noun_verb_ttc    7.262006512006511
+
+## with additional boxes 
+
+# ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#      Validate metric           DataLoader 0
+# ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#   map_box_noun_verb_ttc      4.637998206838787
+#        val/ap_box            25.9089269829211
+#      val/ap_box_noun        10.330009206830118
+#    val/ap_box_noun_ttc       3.982338692648281
+#   val/ap_box_noun_verb       9.465262195141918
+# val/ap_box_noun_verb_ttc    3.8347359263422893
+#      val/ap_box_ttc          8.95142259385375
+#      val/ap_box_verb        18.066934662371267
+#    val/ap_box_verb_ttc       6.355672313564935
+#     val/map_box_noun        15.567648258029244
+#   val/map_box_noun_ttc       4.984724649449514
+#   val/map_box_noun_verb      13.18032005269081
+# val/map_box_noun_verb_ttc    4.637998206838787
+
+  
