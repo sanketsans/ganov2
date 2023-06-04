@@ -61,15 +61,8 @@ base_url = https://api.wandb.ai
 ```
 Then, login with `wandb login`.
 
+You can download the model trained on 'v2' of ego4d : [Challenge Model](https://drive.google.com/file/d/1UomhYn3SKnWfoNgH5jjngJ3aywc-kP-c/view?usp=share_link)
 
-## Model Zoo and Baselines
-We provided pretrained models on EGO4D `v1` and `v2`:
-
-
-| pretraining | Still | Fast | model |  config  |
-| ------------- | -------------| ------------- | ------------- | ------------- | 
-| EGO4D v1 | ResNet R50 | X3D_M |  [`link`](https://iplab.dmi.unict.it/sharing/StillFast/models/StillFast_EGO4D_v1.ckpt) | configs/sta/STILL_FAST_R50_X3DM_EGO4D_v1.yaml |
-| EGO4D v2 | ResNet R50 | X3D_M | [`link`](https://iplab.dmi.unict.it/sharing/StillFast/models/StillFast_EGO4D_v2.ckpt) | configs/sta/STILL_FAST_R50_X3DM_EGO4D_v2.yaml |
 
 
 ## EGO4D Dataset
@@ -98,11 +91,9 @@ After the validation phase, predictions will be saved in a json file under:
 
 `output/sta/<expt_name>/version_x/results/val.json`
 
-Results will be printed, but you may obtain the final ones using the official [`evaluate_short_term_anticipation_results.py` script](https://github.com/EGO4D/forecasting/blob/main/SHORT_TERM_ANTICIPATION.md#evaluating-the-results).
-
 You can evaluate the results with the following command:   
 
-`python /path/to/forecasting/tools/short_term_anticipation/evaluate_short_term_anticipation_results.py output/sta/<expt_name>/version_x/results/val.json /path/to/ego4d/annotations/fho_sta_val.json`
+`python tools/short_term_anticipation/evaluate_short_term_anticipation_results.py output/sta/<expt_name>/version_x/results/val.json /path/to/ego4d/annotations/fho_sta_val.json`
 
 ## Test
 
