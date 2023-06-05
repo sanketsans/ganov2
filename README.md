@@ -108,3 +108,7 @@ After the test phase, predictions will be saved in a json file under:
 `output/sta/<expt_name>/version_x/results/test.json`
 
 To obtain results, submit the `test.json` file to the [`EGO4D Short Term Object Interaction Anticipation Challenge page`](https://eval.ai/web/challenges/challenge-page/1623/overview).
+
+## Acknowledgment 
+
+The codebase was built on top of [stillfast](https://github.com/fpv-iplab/stillfast). Many thanks to authors for clearing doubts on the same. 
