@@ -13,7 +13,7 @@ CVPR23 technical report, Guided Attention for Next Active Object @ EGO4D STA Cha
 [project web page](https://sanketsans.github.io/guided-attention-egocentric.html) | [paper](https://arxiv.org/abs/2305.12953) | [technical report](https://arxiv.org/abs/2305.16066)
 
 
-## Citing StillFast Paper
+## Citing GANO Paper
 If you find our work useful in your research, please use the following BibTeX entry for citation.
 ```
 @misc{thakur2023enhancing,
