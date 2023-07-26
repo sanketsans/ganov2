@@ -451,12 +451,12 @@ class RoiHeadsSTAv2(RoiHeadsSTA):
             noun_labels = noun_labels.reshape(-1)
 
             # remove low scoring boxes
-            # inds = torch.where(vn_scores > self.score_thresh)[0]
-            # boxes, vn_scores, noun_labels, verb_labels, keep_idx = boxes[inds], vn_scores[inds], noun_labels[inds], verb_labels[inds], keep_idx[inds]
+            inds = torch.where(vn_scores > self.score_thresh)[0]
+            boxes, vn_scores, noun_labels, verb_labels, keep_idx = boxes[inds], vn_scores[inds], noun_labels[inds], verb_labels[inds], keep_idx[inds]
 
             # # remove empty boxes
-            # keep = box_ops.remove_small_boxes(boxes, min_size=1e-2)
-            # boxes, vn_scores, noun_labels, verb_labels, keep_idx = boxes[keep], vn_scores[keep], noun_labels[keep], verb_labels[keep], keep_idx[keep]
+            keep = box_ops.remove_small_boxes(boxes, min_size=1e-2)
+            boxes, vn_scores, noun_labels, verb_labels, keep_idx = boxes[keep], vn_scores[keep], noun_labels[keep], verb_labels[keep], keep_idx[keep]
 
             vn_labels = noun_labels + verb_labels*(noun_classes+1)
             
@@ -469,27 +469,12 @@ class RoiHeadsSTAv2(RoiHeadsSTA):
 
             ttcs = ttcs[keep_idx]
 
-            orig_boxes = torch.tensor(orig_boxes, device=boxes.device, requires_grad=False)
-            orig_labels = torch.tensor(orig_labels, device=boxes.device, requires_grad=False)
-            orig_scores = torch.tensor(orig_scores, device=boxes.device, requires_grad=False)
-
-            # boxes = torch.cat((orig_boxes, boxes))
-            # vn_scores = torch.cat((orig_scores, vn_scores))
-            # noun_labels = torch.cat((orig_labels, noun_labels))
-            # verb_labels = torch.cat((verb_labels[:len(orig_boxes)], verb_labels))
-            # ttcs = torch.cat((ttcs[:len(orig_boxes)], ttcs))
-
-            boxes = orig_boxes
-            vn_scores = orig_scores
-            noun_labels = orig_labels
-            verb_labels = verb_labels[: len(orig_boxes)]
-            ttcs = ttcs[: len(orig_boxes)]
-
             all_boxes.append(boxes)
             all_scores.append(vn_scores)
             all_nouns.append(noun_labels)
             all_verbs.append(verb_labels)
             all_ttcs.append(ttcs)
+
 
         result: List[Dict[str, torch.Tensor]] = []
         num_images = len(all_boxes)
