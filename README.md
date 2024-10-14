@@ -65,7 +65,7 @@ base_url = https://api.wandb.ai
 ```
 Then, login with `wandb login`.
 
-You can download the model trained on 'v2' of ego4d : [Challenge Model](https://drive.google.com/file/d/1UomhYn3SKnWfoNgH5jjngJ3aywc-kP-c/view?usp=share_link)
+You can download the model trained on 'v2' of ego4d : [Challenge Model](https://huggingface.co/sanketsans/ganov2/resolve/main/best.ckpt?download=true)
 
 ## EGO4D Dataset
 To train/test the model on the EGO4D dataset, follow the instructions provided here to download the dataset and its annotations for the Short-Term Object Interaction Anticipation task:
